@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ssm.mapper.PistdAssetnumDetailMapper">
+<resultMap id="BaseResultMap" type="cn.ssm.po.PistdAssetnumDetail" >
+    
+    <result column="DESCRIPTION" property="ASSETDESCRIPTION" jdbcType="VARCHAR" />
+    <result column="PROFESSION" property="PIPROFESSION" jdbcType="VARCHAR" />
+    <result column="CSTDNUM" property="PISTDNUM" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION1" property="PISTDDESCRIPTION" jdbcType="VARCHAR" />
+   
+  </resultMap>
+	
+	<select id="selectPistdasset"  
+			resultType="cn.ssm.po.Pistdasset2">
+		select * from  `pistdasset2`
+	</select>
+	<select id="selectPistdasset2"  
+			resultType="cn.ssm.po.Pistdasset2">
+		select * from  `pistdasset2` where ASSETNUM= #{dev}
+	</select>
+
+	<select id="selectdesByAss" 
+			resultType="String">
+		select DESCRIPTION  from `wsn2`.`asset` where ASSETNUM = #{assetnum}
+	</select>
+	
+	<select id="selectpistd2"  
+			resultType="cn.ssm.po.Pistd2">
+		select * from `pistd2` where PISTDNUM = #{pistdnum}
+	</select>
+	
+	
+	<select id="selectPistdassetByPage"  
+			resultType="cn.ssm.po.Pistdasset2">
+		select * from  `pistdasset2` limit #{startPos},#{pageSize} 
+	</select>
+	<select id="selectPistdasset2ByPage"  
+			resultType="cn.ssm.po.Pistdasset2">
+		select * from  `pistdasset2` where ASSETNUM= #{dev} limit #{startPos},#{pageSize} 
+	</select>
+	
+	<select id="selectCount"  
+			resultType="int">
+		select  count(*) from  `pistdasset2` 
+	</select>
+	<select id="selectCount2"  
+			resultType="int">
+		select  count(*) from  `pistdasset2` where ASSETNUM= #{dev}  
+	</select>
+	
+	
+	
+	<select id="selectCpistd" resultMap="BaseResultMap" >
+		select `asset`.DESCRIPTION ,`cstd`.PROFESSION,`cstdasset`.CSTDNUM,`cstd`.DESCRIPTION DESCRIPTION1 from  `cstdasset`,`asset`,`cstd` where 
+		`cstdasset`.ASSETNUM=`asset`.ASSETNUM AND
+		`cstd`.CSTDNUM=`cstdasset`.CSTDNUM
+		 
+	</select>
+	<select id="selectCpistdBydev" resultMap="BaseResultMap">
+	select `asset`.DESCRIPTION ,`cstd`.PROFESSION,`cstdasset`.CSTDNUM,`cstd`.DESCRIPTION DESCRIPTION1 from  `cstdasset`,`asset`,`cstd` where 
+		`cstdasset`.ASSETNUM=#{dev} AND
+		`cstdasset`.ASSETNUM=`asset`.ASSETNUM AND
+		`cstd`.CSTDNUM=`cstdasset`.CSTDNUM
+	</select>
+</mapper>

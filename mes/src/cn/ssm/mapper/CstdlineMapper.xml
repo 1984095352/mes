@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ssm.mapper.CstdlineMapper" >
+  <resultMap id="BaseResultMap" type="cn.ssm.po.Cstdline" >
+    <id column="UNID" property="unid" jdbcType="INTEGER" />
+    <result column="CSTDNUM" property="cstdnum" jdbcType="VARCHAR" />
+    <result column="CLINENUM" property="clinenum" jdbcType="INTEGER" />
+    <result column="PARTLOC" property="partloc" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="STANDARD" property="standard" jdbcType="VARCHAR" />
+    <result column="CONTENTFLAG" property="contentflag" jdbcType="VARCHAR" />
+    <result column="CISHU" property="cishu" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="selectCstdline" resultMap="BaseResultMap" parameterType="string" >
+  select * from `wsn2`.`cstdline`,`wsn2`.`cstd` where `cstdline`.CSTDNUM =#{stdnum} and `cstd`.CSTDNUM=#{stdnum}
+   </select>
+  
+</mapper>

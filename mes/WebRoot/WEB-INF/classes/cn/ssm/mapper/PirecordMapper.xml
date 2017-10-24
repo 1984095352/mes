@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ssm.mapper.PirecordMapper" >
+  <resultMap id="BaseResultMap" type="cn.ssm.po.Pirecord" >
+    <id column="PIPLANID" property="piplanid" jdbcType="BIGINT" />
+    <result column="PIPLANNUM" property="piplannum" jdbcType="VARCHAR" />
+    <result column="DAY" property="day" jdbcType="INTEGER" />
+    <result column="DEPARTMENT" property="department" jdbcType="VARCHAR" />
+    <result column="PIPROFESSION" property="piprofession" jdbcType="VARCHAR" />
+    <result column="DRAWUPBY" property="drawupby" jdbcType="VARCHAR" />
+    <result column="DRAWUPDATE" property="drawupdate" jdbcType="TIMESTAMP" />
+    <result column="EXECUTEBY" property="executeby" jdbcType="VARCHAR" />
+    <result column="PIPLANDATE" property="piplandate" jdbcType="DATE" />
+    <result column="PIDATE" property="pidate" jdbcType="DATE" />
+    <result column="PIRECORDNUM" property="pirecordnum" jdbcType="VARCHAR" />
+    <result column="ASSETNUM" property="assetnum" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="PISTDNUM" property="pistdnum" jdbcType="VARCHAR" />
+    <result column="ISSTOP" property="isstop" jdbcType="INTEGER" />
+    <result column="PLATEFROM" property="platefrom" jdbcType="VARCHAR" />
+    <result column="ENTERDATE" property="enterdate" jdbcType="TIMESTAMP" />
+    <result column="PITYPE" property="pitype" jdbcType="VARCHAR" />
+    <result column="SITEID" property="siteid" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="UPLOADFLAG" property="uploadflag" jdbcType="BIT" />
+    <result column="UPLOADTIME" property="uploadtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="PlanRecordMap" type="cn.ssm.po.PlandevshowRecord" >
+    <result column="PIPLANNUM" property="PIPLANNUM" jdbcType="VARCHAR" />
+    <result column="DEPARTMENT" property="DEPARTMENT" jdbcType="VARCHAR" />
+    <result column="PIPROFESSION" property="PIPROFESSION" jdbcType="TIMESTAMP" />
+    <result column="DRAWUPBY" property="DRAWUPBY" jdbcType="VARCHAR" />
+    <result column="DRAWUPDATE" property="DRAWUPDATE" jdbcType="VARCHAR" />
+    <result column="PIPLANDATE" property="PIPLANDATE" jdbcType="VARCHAR" />
+    <result column="ASSETNUM" property="ASSETNUM" jdbcType="VARCHAR" />
+    <result column="RESULT" property="RESULT" jdbcType="VARCHAR" />
+    <result column="UNIDPLAN" property="UNIDPLAN" jdbcType="VARCHAR" />
+    <result column="DISPLAYNAME" property="DISPLAYNAME" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="ASSETDESCRIPTION" jdbcType="VARCHAR" />
+    <result column="PISTDNUM" property="PISTDNUM" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION1" property="PISTDDESCRIPTION" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PIPLANID, PIPLANNUM, DAY, DEPARTMENT, PIPROFESSION, DRAWUPBY, DRAWUPDATE, EXECUTEBY, 
+    PIPLANDATE, PIDATE, PIRECORDNUM, ASSETNUM, LOCATION, PISTDNUM, ISSTOP, PLATEFROM, 
+    ENTERDATE, PITYPE, SITEID, RESULT, UPLOADFLAG, UPLOADTIME
+  </sql>
+  <select id="selectPlanPerson" resultType="cn.ssm.po.Plandevshowperson">
+  	SELECT distinct EXECUTEBY,DISPLAYNAME  FROM  `pirecord`,`person` where `person`.PERSONID =`pirecord`.EXECUTEBY  	
+  </select>
+ <select id="selectAllPlanRecord" resultMap="PlanRecordMap">
+  	SELECT * , `pistd2`.DESCRIPTION DESCRIPTION1 FROM `pirecord`,`person`,`asset`,`pistd2` where `pirecord`.DRAWUPDATE BETWEEN #{0} AND #{1} AND
+`person`.LOGINID=`pirecord`.EXECUTEBY AND
+`asset`.ASSETNUM=`pirecord`.ASSETNUM AND
+`pistd2`.PISTDNUM=`pirecord`.PISTDNUM 
+  </select>
+  <select id="selectPlanRecord" resultMap="PlanRecordMap">
+  	SELECT * , `pistd2`.DESCRIPTION DESCRIPTION1 FROM `pirecord`,`person`,`asset`,`pistd2` where `pirecord`.EXECUTEBY=#{2} AND
+  	 `pirecord`.DRAWUPDATE BETWEEN #{0} AND #{1} AND
+	 `person`.LOGINID=`pirecord`.EXECUTEBY AND
+	 `asset`.ASSETNUM=`pirecord`.ASSETNUM AND
+	 `pistd2`.PISTDNUM=`pirecord`.PISTDNUM 
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.ssm.po.PirecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pirecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from pirecord
+    where PIPLANID = #{piplanid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pirecord
+    where PIPLANID = #{piplanid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.ssm.po.PirecordExample" >
+    delete from pirecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.ssm.po.Pirecord" >
+    insert into pirecord (PIPLANID, PIPLANNUM, DAY, 
+      DEPARTMENT, PIPROFESSION, DRAWUPBY, 
+      DRAWUPDATE, EXECUTEBY, PIPLANDATE, 
+      PIDATE, PIRECORDNUM, ASSETNUM, 
+      LOCATION, PISTDNUM, ISSTOP, 
+      PLATEFROM, ENTERDATE, PITYPE, 
+      SITEID, RESULT, UPLOADFLAG, 
+      UPLOADTIME)
+    values (#{piplanid,jdbcType=BIGINT}, #{piplannum,jdbcType=VARCHAR}, #{day,jdbcType=INTEGER}, 
+      #{department,jdbcType=VARCHAR}, #{piprofession,jdbcType=VARCHAR}, #{drawupby,jdbcType=VARCHAR}, 
+      #{drawupdate,jdbcType=TIMESTAMP}, #{executeby,jdbcType=VARCHAR}, #{piplandate,jdbcType=DATE}, 
+      #{pidate,jdbcType=DATE}, #{pirecordnum,jdbcType=VARCHAR}, #{assetnum,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{pistdnum,jdbcType=VARCHAR}, #{isstop,jdbcType=INTEGER}, 
+      #{platefrom,jdbcType=VARCHAR}, #{enterdate,jdbcType=TIMESTAMP}, #{pitype,jdbcType=VARCHAR}, 
+      #{siteid,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{uploadflag,jdbcType=BIT}, 
+      #{uploadtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ssm.po.Pirecord" >
+    insert into pirecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="piplanid != null" >
+        PIPLANID,
+      </if>
+      <if test="piplannum != null" >
+        PIPLANNUM,
+      </if>
+      <if test="day != null" >
+        DAY,
+      </if>
+      <if test="department != null" >
+        DEPARTMENT,
+      </if>
+      <if test="piprofession != null" >
+        PIPROFESSION,
+      </if>
+      <if test="drawupby != null" >
+        DRAWUPBY,
+      </if>
+      <if test="drawupdate != null" >
+        DRAWUPDATE,
+      </if>
+      <if test="executeby != null" >
+        EXECUTEBY,
+      </if>
+      <if test="piplandate != null" >
+        PIPLANDATE,
+      </if>
+      <if test="pidate != null" >
+        PIDATE,
+      </if>
+      <if test="pirecordnum != null" >
+        PIRECORDNUM,
+      </if>
+      <if test="assetnum != null" >
+        ASSETNUM,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="pistdnum != null" >
+        PISTDNUM,
+      </if>
+      <if test="isstop != null" >
+        ISSTOP,
+      </if>
+      <if test="platefrom != null" >
+        PLATEFROM,
+      </if>
+      <if test="enterdate != null" >
+        ENTERDATE,
+      </if>
+      <if test="pitype != null" >
+        PITYPE,
+      </if>
+      <if test="siteid != null" >
+        SITEID,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+      <if test="uploadflag != null" >
+        UPLOADFLAG,
+      </if>
+      <if test="uploadtime != null" >
+        UPLOADTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="piplanid != null" >
+        #{piplanid,jdbcType=BIGINT},
+      </if>
+      <if test="piplannum != null" >
+        #{piplannum,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null" >
+        #{day,jdbcType=INTEGER},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="piprofession != null" >
+        #{piprofession,jdbcType=VARCHAR},
+      </if>
+      <if test="drawupby != null" >
+        #{drawupby,jdbcType=VARCHAR},
+      </if>
+      <if test="drawupdate != null" >
+        #{drawupdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="executeby != null" >
+        #{executeby,jdbcType=VARCHAR},
+      </if>
+      <if test="piplandate != null" >
+        #{piplandate,jdbcType=DATE},
+      </if>
+      <if test="pidate != null" >
+        #{pidate,jdbcType=DATE},
+      </if>
+      <if test="pirecordnum != null" >
+        #{pirecordnum,jdbcType=VARCHAR},
+      </if>
+      <if test="assetnum != null" >
+        #{assetnum,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="pistdnum != null" >
+        #{pistdnum,jdbcType=VARCHAR},
+      </if>
+      <if test="isstop != null" >
+        #{isstop,jdbcType=INTEGER},
+      </if>
+      <if test="platefrom != null" >
+        #{platefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="enterdate != null" >
+        #{enterdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pitype != null" >
+        #{pitype,jdbcType=VARCHAR},
+      </if>
+      <if test="siteid != null" >
+        #{siteid,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadflag != null" >
+        #{uploadflag,jdbcType=BIT},
+      </if>
+      <if test="uploadtime != null" >
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.ssm.po.PirecordExample" resultType="java.lang.Integer" >
+    select count(*) from pirecord
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pirecord
+    <set >
+      <if test="record.piplanid != null" >
+        PIPLANID = #{record.piplanid,jdbcType=BIGINT},
+      </if>
+      <if test="record.piplannum != null" >
+        PIPLANNUM = #{record.piplannum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.day != null" >
+        DAY = #{record.day,jdbcType=INTEGER},
+      </if>
+      <if test="record.department != null" >
+        DEPARTMENT = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.piprofession != null" >
+        PIPROFESSION = #{record.piprofession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drawupby != null" >
+        DRAWUPBY = #{record.drawupby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drawupdate != null" >
+        DRAWUPDATE = #{record.drawupdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.executeby != null" >
+        EXECUTEBY = #{record.executeby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.piplandate != null" >
+        PIPLANDATE = #{record.piplandate,jdbcType=DATE},
+      </if>
+      <if test="record.pidate != null" >
+        PIDATE = #{record.pidate,jdbcType=DATE},
+      </if>
+      <if test="record.pirecordnum != null" >
+        PIRECORDNUM = #{record.pirecordnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetnum != null" >
+        ASSETNUM = #{record.assetnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        LOCATION = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pistdnum != null" >
+        PISTDNUM = #{record.pistdnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isstop != null" >
+        ISSTOP = #{record.isstop,jdbcType=INTEGER},
+      </if>
+      <if test="record.platefrom != null" >
+        PLATEFROM = #{record.platefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterdate != null" >
+        ENTERDATE = #{record.enterdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pitype != null" >
+        PITYPE = #{record.pitype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteid != null" >
+        SITEID = #{record.siteid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.result != null" >
+        RESULT = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadflag != null" >
+        UPLOADFLAG = #{record.uploadflag,jdbcType=BIT},
+      </if>
+      <if test="record.uploadtime != null" >
+        UPLOADTIME = #{record.uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pirecord
+    set PIPLANID = #{record.piplanid,jdbcType=BIGINT},
+      PIPLANNUM = #{record.piplannum,jdbcType=VARCHAR},
+      DAY = #{record.day,jdbcType=INTEGER},
+      DEPARTMENT = #{record.department,jdbcType=VARCHAR},
+      PIPROFESSION = #{record.piprofession,jdbcType=VARCHAR},
+      DRAWUPBY = #{record.drawupby,jdbcType=VARCHAR},
+      DRAWUPDATE = #{record.drawupdate,jdbcType=TIMESTAMP},
+      EXECUTEBY = #{record.executeby,jdbcType=VARCHAR},
+      PIPLANDATE = #{record.piplandate,jdbcType=DATE},
+      PIDATE = #{record.pidate,jdbcType=DATE},
+      PIRECORDNUM = #{record.pirecordnum,jdbcType=VARCHAR},
+      ASSETNUM = #{record.assetnum,jdbcType=VARCHAR},
+      LOCATION = #{record.location,jdbcType=VARCHAR},
+      PISTDNUM = #{record.pistdnum,jdbcType=VARCHAR},
+      ISSTOP = #{record.isstop,jdbcType=INTEGER},
+      PLATEFROM = #{record.platefrom,jdbcType=VARCHAR},
+      ENTERDATE = #{record.enterdate,jdbcType=TIMESTAMP},
+      PITYPE = #{record.pitype,jdbcType=VARCHAR},
+      SITEID = #{record.siteid,jdbcType=VARCHAR},
+      RESULT = #{record.result,jdbcType=VARCHAR},
+      UPLOADFLAG = #{record.uploadflag,jdbcType=BIT},
+      UPLOADTIME = #{record.uploadtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ssm.po.Pirecord" >
+    update pirecord
+    <set >
+      <if test="piplannum != null" >
+        PIPLANNUM = #{piplannum,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null" >
+        DAY = #{day,jdbcType=INTEGER},
+      </if>
+      <if test="department != null" >
+        DEPARTMENT = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="piprofession != null" >
+        PIPROFESSION = #{piprofession,jdbcType=VARCHAR},
+      </if>
+      <if test="drawupby != null" >
+        DRAWUPBY = #{drawupby,jdbcType=VARCHAR},
+      </if>
+      <if test="drawupdate != null" >
+        DRAWUPDATE = #{drawupdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="executeby != null" >
+        EXECUTEBY = #{executeby,jdbcType=VARCHAR},
+      </if>
+      <if test="piplandate != null" >
+        PIPLANDATE = #{piplandate,jdbcType=DATE},
+      </if>
+      <if test="pidate != null" >
+        PIDATE = #{pidate,jdbcType=DATE},
+      </if>
+      <if test="pirecordnum != null" >
+        PIRECORDNUM = #{pirecordnum,jdbcType=VARCHAR},
+      </if>
+      <if test="assetnum != null" >
+        ASSETNUM = #{assetnum,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="pistdnum != null" >
+        PISTDNUM = #{pistdnum,jdbcType=VARCHAR},
+      </if>
+      <if test="isstop != null" >
+        ISSTOP = #{isstop,jdbcType=INTEGER},
+      </if>
+      <if test="platefrom != null" >
+        PLATEFROM = #{platefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="enterdate != null" >
+        ENTERDATE = #{enterdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pitype != null" >
+        PITYPE = #{pitype,jdbcType=VARCHAR},
+      </if>
+      <if test="siteid != null" >
+        SITEID = #{siteid,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        RESULT = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadflag != null" >
+        UPLOADFLAG = #{uploadflag,jdbcType=BIT},
+      </if>
+      <if test="uploadtime != null" >
+        UPLOADTIME = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PIPLANID = #{piplanid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ssm.po.Pirecord" >
+    update pirecord
+    set PIPLANNUM = #{piplannum,jdbcType=VARCHAR},
+      DAY = #{day,jdbcType=INTEGER},
+      DEPARTMENT = #{department,jdbcType=VARCHAR},
+      PIPROFESSION = #{piprofession,jdbcType=VARCHAR},
+      DRAWUPBY = #{drawupby,jdbcType=VARCHAR},
+      DRAWUPDATE = #{drawupdate,jdbcType=TIMESTAMP},
+      EXECUTEBY = #{executeby,jdbcType=VARCHAR},
+      PIPLANDATE = #{piplandate,jdbcType=DATE},
+      PIDATE = #{pidate,jdbcType=DATE},
+      PIRECORDNUM = #{pirecordnum,jdbcType=VARCHAR},
+      ASSETNUM = #{assetnum,jdbcType=VARCHAR},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      PISTDNUM = #{pistdnum,jdbcType=VARCHAR},
+      ISSTOP = #{isstop,jdbcType=INTEGER},
+      PLATEFROM = #{platefrom,jdbcType=VARCHAR},
+      ENTERDATE = #{enterdate,jdbcType=TIMESTAMP},
+      PITYPE = #{pitype,jdbcType=VARCHAR},
+      SITEID = #{siteid,jdbcType=VARCHAR},
+      RESULT = #{result,jdbcType=VARCHAR},
+      UPLOADFLAG = #{uploadflag,jdbcType=BIT},
+      UPLOADTIME = #{uploadtime,jdbcType=TIMESTAMP}
+    where PIPLANID = #{piplanid,jdbcType=BIGINT}
+  </update>
+</mapper>
