@@ -13,15 +13,15 @@
 		<form class="form-inline top">
 		  <div class="form-group">
 		  	<label for="exampleInputName2">客户</label>
-		    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+		    <input type="text" class="form-control" name="client" >
 		  </div>
 		  <div class="form-group">
 		  	<label for="exampleInputName2">产品</label>
-		    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+		    <input type="text" class="form-control" name="chanpin" >
 		  </div>
           <div class="form-group">
 		  	<label for="exampleInputName2">车间</label>
-		    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+		    <input type="text" class="form-control"  name="chejian">
 		  </div>
 		  <button type="submit" class="btn btn-primary pull-right">查询</button>
 		</form>
@@ -49,7 +49,7 @@
 					<td>车间名称</td>
 					<td>制定计划日期</td>
 					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
+					<td><input type="hidden" name="id" value="12"/><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
 				</tr>
 				<tr  >
 					<td>计划单号</td>
@@ -59,7 +59,7 @@
 					<td>车间名称</td>
 					<td>制定计划日期</td>
 					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
+					<td><input type="hidden" name="id" value="13"/><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
 				</tr>
 				<tr  >
 					<td>计划单号</td>
@@ -210,8 +210,9 @@
 	function revise(obj){
 	    
 	    
-		var id=$(obj).prev().prev().val();
-		//location.href="order.html?id="+id;
+		var id=$(obj).prev().val();
+		alert(id);
+		location.href="${pageContext.request.contextPath}/plan/toShopPlan.action?planId="+id;
 	}
 	
 </script>

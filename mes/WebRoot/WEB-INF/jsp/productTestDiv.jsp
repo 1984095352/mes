@@ -8,9 +8,10 @@
 	String basePath = request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort()+ path + "/";
 %>
 
-	<c:forEach items="${data}" var="item">	   
+	<c:forEach items="${data}" var="item">
+	<div  class="used">	   
 	   <h5>详细记录</h5>
-             <table class="table table-hover used ">
+             <table class="table table-hover">
 	
          <tr>
                 <td>生产日期：<input  type="text" name="produce_date" value=""/> </td>
@@ -26,9 +27,11 @@
               <td>操作工：<input  name="caozuogong" type="text" value=""/></td>
               <td>批号：<input   name="pihao" type="text" value=""/></td>
               <td>判定：<input   name="panding" type="text" value=""/></td>
-             
+             <td> <input  type="button" class="btn btn-default" onclick="jia(this)" value="插入"/>&nbsp;&nbsp;&nbsp;
+     		 <input  type="button" class="btn btn-default" onclick="jian(this)" value="删除"/></td>
             </tr>
           </table> 
-               
+        
+      </div>         
       
      </c:forEach>

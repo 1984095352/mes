@@ -73,7 +73,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" >
-                        <li><a href="${pageContext.request.contextPath}/manage/clientManage.action"><span class="glyphicon     glyphicon-cog"></span>&nbsp;&nbsp;客户管理</a></li>     
+                        <li><a href="${pageContext.request.contextPath}/manage/clientManage.action"><span class="glyphicon     glyphicon-cog"></span>&nbsp;&nbsp;客户产品管理</a></li>     
                         <li><a href="${pageContext.request.contextPath}/manage/assetManage.action"><span class="glyphicon     glyphicon-cog"></span>&nbsp;&nbsp;设备模具绑定</a></li>
                     </ul>
        

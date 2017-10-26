@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.ssm.po.Person;
+
 
 
 public class LoginInterceptor implements HandlerInterceptor {
@@ -26,11 +26,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if(param!=null){
 			session.setAttribute("param", param);
 		}
-		Person person =  (Person) session.getAttribute("user");
+/*		Person person =  (Person) session.getAttribute("user");
 		//如果用户身份在session中存在放行
 		if(person!=null){
 			return true;
-		}
+		}*/
 		//执行到这里拦截，跳转到登陆页面，用户进行身份认证
 		session.setAttribute("relogin_errror", "请先登录！");
 		request.getRequestDispatcher("/WEB-INF/jsp/Reloogin.jsp").forward(request, response);

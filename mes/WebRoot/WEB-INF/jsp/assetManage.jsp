@@ -9,20 +9,69 @@
 %>
 <jsp:include page="headandfoot.jsp"></jsp:include>
 <div class="container">
-    <h4 class="myClass navbar-left">客户查询</h4>
+    <h4 class="myClass navbar-left">设备模具查询</h4>
 		<form class="form-inline top">
 		  <div class="form-group">
-		  	<label for="exampleInputName2">客户</label>
-		    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+		  	<label for="exampleInputName2">设备</label>
+		    <input type="text" class="form-control" id="exampleInputName2" >
 		  </div>
 		  <div class="form-group">
-		  	<label for="exampleInputName2">产品</label>
-		    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-		  </div>      
-		  <button type="submit" class="btn btn-primary pull-right">查询</button>
+		  	<label for="exampleInputName2">模具</label>
+		    <input type="text" class="form-control" id="exampleInputName2" >
+		  </div>  &nbsp;&nbsp;&nbsp;&nbsp;     
+		  <button type="submit" class="btn btn-primary ">查询</button>
 		</form>
 		<br />
-    
+    <div class="table-responsive  center">
+	  <table class="table">
+			<thead>
+				<tr>
+					<th>设备</th>
+					<th>模具</th>			
+				</tr>
+			</thead>
+			<tbody>
+				<tr  >
+					<td>设备</td>
+					<td>模具</td>					
+				</tr>
+				<tr  >
+					<td>设备</td>
+					<td>模具</td>					
+				</tr>
+				<tr  >
+					<td>设备</td>
+					<td>模具</td>					
+				</tr>
+				<tr  >
+					<td>设备</td>
+					<td>模具</td>					
+				</tr>
+				<tr  >
+					<td>设备</td>
+					<td>模具</td>					
+				</tr>
+				<tr  >
+					<td>设备</td>
+					<td>模具</td>					
+				</tr>
+				
+			</tbody>
+		</table>
+	</div> 
+	<h4 class="myClass navbar-left">设备模具管理</h4> <br /><br /><br /><br />
+		<form class="form-inline top">
+		  <div class="form-group">
+		  	<label for="exampleInputName2">设备</label>
+		    <input type="text" class="form-control" id="exampleInputName2" >
+		  </div>
+		  <div class="form-group">
+		  	<label for="exampleInputName2">模具</label>
+		    <input type="text" class="form-control" id="exampleInputName2" >
+		  </div>
+		   &nbsp;&nbsp;&nbsp;&nbsp;     
+		  <button type="submit" class="btn btn-primary ">绑定</button>
+		</form>
 </div>
 
 

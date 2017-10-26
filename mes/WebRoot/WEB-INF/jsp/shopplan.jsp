@@ -10,30 +10,32 @@
 <jsp:include page="headandfoot.jsp"></jsp:include>
 <div class="container">
     <h4>产品信息</h4>
-        <form id="form" class="form-inline">
+        <form id="form" class="form-inline" action="${pageContext.request.contextPath}/plan/addShopPlan.action" method="post">
             <table class="table table-hover">
               <tr>
                 <td><label for="exampleInputName2">计划单号</label></td>
                 
-                <td><input type="text" class="form-control" name="plan_no" value=""/></td>           
+                <td><input type="text" class="form-control" name="planNo" value="${shopPlan.planNo }"/></td>           
               
                 <td><label for="exampleInputName2">物料号</label></td>
-                <td><input id="wl" type="text" class="form-control" name="wuliaohao"  value="${wuliaohao }"></td>
+                <td><input id="wl" type="text" class="form-control" name="materialNo"  value="${shopPlan.materialNo }"></td>
               
               
                 <td><label for="exampleInputName2">产品名称</label></td>
-                <td><input type="text" class="form-control" name="chanpin" value=""/></td>
+                <td><input type="text" class="form-control" name="materialName" value="${shopPlan.materialName }"/></td>
               </tr>
               <tr>
                 <td><label for="exampleInputName2">车间名称</label></td>  
-                <td><input id="cj" type="text" class="form-control" name="shop_name" value=""/></td>           
+                <td><input id="cj" type="text" class="form-control" name="shopName" value="${shopPlan.shopName }"/></td>           
               
                 <td><label for="exampleInputName2">计划数量</label></td>
-                <td><input  type="text" class="form-control" name="plan_num"  value="${wuliaohao }"></td>
+                <td><input  type="text" class="form-control" name="planNum"  value="${shopPlan.planNum }"></td>
               </tr>
             
           </table>
         <h4>生产车间计划安排</h4>
+        <input  type="hidden" id="num" name="num"  value="">
+        <input  type="hidden"  name="planId"  value="${planId }">
         <div id="div">
         	<jsp:include page="shopdiv.jsp"></jsp:include>
         </div>
@@ -57,9 +59,9 @@
 	$(function(){
 		/* order_js();
 		calender(); */
-		$("#cj").blur(function(){
+		/* $("#cj").blur(function(){
 			 $.ajax({
-					 	 url:"${pageContext.request.contextPath}/plan/ajax.action",						 
+					 	 url:"${pageContext.request.contextPath}/plan/shopAjax.action",						 
 						 data:{
 							wuliao:$("#wl").val(),
 							shop_name:$("#cj").val(),
@@ -72,24 +74,24 @@
 			}); 
 			
 			
-		});
+		}); */
 		$("#tijiao").click(function(){
 			var j=1;
 			$(".used").each(function(){
 				$(this).attr("id","div_"+j);
 				var gongxu = $(this).children().first();
 				gongxu.attr("name","gongxu" + j);
-				var shuliang = gongxu.next();
-				shuliang.attr("name","shuliang" + j);
-				var shebei =shuliang.next();
+				var shebei =gongxu.next();
 				shebei.attr("name","shebei" + j);
 				var caozuogong =shebei.next();
 				caozuogong.attr("name","caozuogong" + j);
 				j++;
 			});
+			$("#num").val(j-1);
 			var formParam1 = $("form").serialize();
 			var formParam2 = $("form").serializeArray();
 			alert(formParam1);
+			$("form").submit();
 		});
 	});
 	function jia(obj){

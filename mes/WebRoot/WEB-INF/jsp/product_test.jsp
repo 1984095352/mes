@@ -72,7 +72,7 @@
 		$("#tijiao").click(function(){
 			var j=1;
 			$(".used").each(function(){
-				var produce_date = $(this).children().first().children().first().children().first().children().first();	
+				var produce_date = $(this).children().first().next().children().first().children().first().children().first().children().first();	
 				produce_date.attr("name","produce_date" + j);
 				var gongxu = produce_date.parent().next().children().first();
 				gongxu.attr("name","gongxu" + j);
@@ -103,14 +103,14 @@
 	});
 	function jia(obj){
 			
-			var sourceNode = $(obj).parent();
+			var sourceNode = $(obj).parent().parent().parent().parent().parent();	
 			var cloneNode = sourceNode.clone();
-			sourceNode.after("<div id='' class='used'></div>");
+			sourceNode.after("<div  class='used'></div>");
 			sourceNode.next().html(cloneNode.html());		
 	}
 	function jian(obj){
 			
-			var delNode = $(obj).parent();
+			var delNode = $(obj).parent().parent().parent().parent().parent();
 			delNode.remove();		
 	}
 </script>

@@ -1,8 +1,12 @@
 package cn.ssm.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import cn.ssm.mapper.TaskMapper;
+import cn.ssm.service.ShopPlanService;
 
 
 
@@ -10,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/record")
 public class RecordController {
 
-	
+	@Autowired
+	private ShopPlanService shopPlanService;
+	@Autowired
+	private TaskMapper taskMapper;
 	@RequestMapping("/toOrderList")
 	public String toOrderList(Model model )throws Exception{
 		
@@ -22,8 +29,8 @@ public class RecordController {
 		return "applyList";
 	}
 	@RequestMapping("/toShopPlanList")
-	public String toShopPlanList(Model model )throws Exception{
-		
+	public String toShopPlanList(Model model, String client, String chanpin, String chejian )throws Exception{
+		shopPlanService.selectShopPlanByParam(client, chanpin, chejian);
 		return "shopplanlist";
 	}
 	@RequestMapping("/toGenzongdanList")

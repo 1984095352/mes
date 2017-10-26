@@ -12,7 +12,7 @@ public class ManageController {
 
 	
 	@RequestMapping("/clientManage")
-	public String clientManage(Model model )throws Exception{
+	public String clientManage( Model model )throws Exception{
 		
 		return "clientManage";
 	}
