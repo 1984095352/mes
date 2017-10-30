@@ -14,6 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
     <title></title>
+    <link href="../css/bootstrap-multiselect.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="../css/bootstrap.min.new.css"/>
     <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="../css/main.css"/>
@@ -111,5 +112,4 @@
         </div>
     </div>
 </footer>
-
 <!--footer-->

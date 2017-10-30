@@ -9,8 +9,8 @@
 %>
 <jsp:include page="headandfoot.jsp"></jsp:include>
 <div class="container">
-    <h4 class="myClass navbar-left">订单查询</h4>
-		<form class="form-inline top">
+    <h4 class="myClass navbar-left" >排产计划查询</h4>
+		<form class="form-inline top" method="post" action="${pageContext.request.contextPath}/record/toShopPlanList.action">
 		  <div class="form-group">
 		  	<label for="exampleInputName2">客户</label>
 		    <input type="text" class="form-control" name="client" >
@@ -22,8 +22,8 @@
           <div class="form-group">
 		  	<label for="exampleInputName2">车间</label>
 		    <input type="text" class="form-control"  name="chejian">
-		  </div>
-		  <button type="submit" class="btn btn-primary pull-right">查询</button>
+		  </div>&nbsp;&nbsp;&nbsp;&nbsp;
+		  <button type="submit" class="btn btn-primary ">查询</button>
 		</form>
 		<br />
     <div class="table-responsive">
@@ -41,156 +41,19 @@
 				</tr>
 			</thead>
 			<tbody>
+			<c:forEach items="${listShopPlan}" var="item">
 				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input type="hidden" name="id" value="12"/><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
+					<td>${item.planNo }</td>
+					<td>${item.client }</td>
+					<td>${item.materialName }</td>
+					<td>${item.materialNo }</td>
+					<td>${item.shopName }</td>
+					<td>${item.planDate }</td>
+					<td>${item.planNum }</td>
+					<td><input type="hidden" name="id" value="${item.planId }"/><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
 				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input type="hidden" name="id" value="13"/><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
-				<tr  >
-					<td>计划单号</td>
-					<td>客户</td>
-					<td>产品名称</td>
-					<td>物料号</td>
-					<td>车间名称</td>
-					<td>制定计划日期</td>
-					<td>计划数量</td>
-					<td><input class="btn  btn-xs btn-primary" type="button" value="修改" onclick="revise(this)"></td>
-				</tr>
+				</c:forEach>
+				
 				
 			</tbody>
 	</table>
@@ -211,7 +74,6 @@
 	    
 	    
 		var id=$(obj).prev().val();
-		alert(id);
 		location.href="${pageContext.request.contextPath}/plan/toShopPlan.action?planId="+id;
 	}
 	

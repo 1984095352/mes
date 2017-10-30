@@ -1,11 +1,14 @@
 package cn.ssm.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.ssm.mapper.TaskMapper;
+import cn.ssm.po.ShopPlan;
 import cn.ssm.service.ShopPlanService;
 
 
@@ -16,8 +19,6 @@ public class RecordController {
 
 	@Autowired
 	private ShopPlanService shopPlanService;
-	@Autowired
-	private TaskMapper taskMapper;
 	@RequestMapping("/toOrderList")
 	public String toOrderList(Model model )throws Exception{
 		
@@ -29,8 +30,10 @@ public class RecordController {
 		return "applyList";
 	}
 	@RequestMapping("/toShopPlanList")
-	public String toShopPlanList(Model model, String client, String chanpin, String chejian )throws Exception{
-		shopPlanService.selectShopPlanByParam(client, chanpin, chejian);
+	public String toShopPlanList(String client, String chanpin, String chejian,Model model )throws Exception{
+		List<ShopPlan> listShopPlan = new ArrayList<ShopPlan>();
+		listShopPlan=shopPlanService.selectShopPlanByParam(client, chanpin, chejian);
+		model.addAttribute("listShopPlan",listShopPlan);
 		return "shopplanlist";
 	}
 	@RequestMapping("/toGenzongdanList")

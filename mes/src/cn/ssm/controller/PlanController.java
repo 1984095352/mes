@@ -29,6 +29,10 @@ public class PlanController {
 		ShopPlan shopPlan=shopPlanService.selectByPrimaryKey(planId);
 		model.addAttribute("shopPlan", shopPlan);
 		listTask=shopPlanService.selectTaskByKey(planId);
+		List<String> personNames = shopPlanService.selectPersonNames();
+		List<String> assetNames = shopPlanService.selectAssetNames();
+		model.addAttribute("personNames", personNames);
+		model.addAttribute("assetNames", assetNames);
 		model.addAttribute("listTask", listTask);
 		model.addAttribute("planId", planId);
 		return "shopplan";
@@ -40,9 +44,15 @@ public class PlanController {
 		
 			if(num!=null){
 				for(int i=1;i<=num;i++){
+					String caozuogong="";
 					String gongxu=request.getParameter("gongxu"+i);
-					String caozuogong=request.getParameter("caozuogong"+i);
+					String values[]=request.getParameterValues("caozuogong"+i);
 					String shebei=request.getParameter("shebei"+i);
+					for(int j=0;j<values.length;j++){
+						caozuogong+=values[j]+",";
+						System.out.println(caozuogong);
+					}
+					caozuogong=caozuogong.substring(0, caozuogong.length()-1);
 					Task task=new Task();
 					task.setProcessName(gongxu);
 					task.setOperator(caozuogong);
@@ -54,7 +64,7 @@ public class PlanController {
 				shopPlanService.insertShopPlan(shopPlan,processSort);
 				Integer planId=shopPlan.getPlanId();
 				shopPlanService.insertTask(listTask,planId);
-				return "shopplanlist";
+				return "redirect:/record/toShopPlanList";
 			}else{
 				return "redirect:toShopPlan";
 			}
@@ -87,10 +97,15 @@ public class PlanController {
 	public String ajax(HttpServletRequest request,HttpServletResponse response,Model model )throws Exception{
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
-		//PrintWriter out=response.getWriter();
-		String data="工序1,工序2,工序3";
-		//out.print(data);
-		model.addAttribute("data", data);
+		List<Task> listTask= new ArrayList<Task>();
+		String materialNo=request.getParameter("materialNo");
+		String shopName=request.getParameter("shopName");
+		listTask=shopPlanService.selectTaskByParam(materialNo,shopName);
+		model.addAttribute("listTask", listTask);
+		List<String> personNames = shopPlanService.selectPersonNames();
+		List<String> assetNames = shopPlanService.selectAssetNames();
+		model.addAttribute("personNames", personNames);
+		model.addAttribute("assetNames", assetNames);
 		return "shopdiv";
 		
 	}
