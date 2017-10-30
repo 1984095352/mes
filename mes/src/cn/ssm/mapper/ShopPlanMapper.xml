@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ssm.mapper.ShopPlanMapper" >
+  <resultMap id="BaseResultMap" type="cn.ssm.po.ShopPlan" >
+    <id column="plan_id" property="planId" jdbcType="INTEGER" />
+    <result column="client" property="client" jdbcType="VARCHAR" />
+    <result column="plan_no" property="planNo" jdbcType="VARCHAR" />
+    <result column="material_no" property="materialNo" jdbcType="VARCHAR" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="material_name" property="materialName" jdbcType="VARCHAR" />
+    <result column="plan_people" property="planPeople" jdbcType="VARCHAR" />
+    <result column="plan_date" property="planDate" jdbcType="VARCHAR" />
+    <result column="plan_num" property="planNum" jdbcType="VARCHAR" />
+    <result column="online_date" property="onlineDate" jdbcType="VARCHAR" />
+    <result column="produced_num" property="producedNum" jdbcType="VARCHAR" />
+    <result column="completed_date" property="completedDate" jdbcType="VARCHAR" />
+    <result column="process_sort" property="processSort" jdbcType="VARCHAR" />
+    <result column="is_new" property="isNew" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="query_shopPlan_where">
+  	
+			<if test="client!=null and client!=''">
+				and  s.client =#{client}
+			</if>
+			<if test="chanpin!=null and chanpin!=''">
+				and  s.material_name = #{chanpin}
+			</if>
+			<if test="chejian!=null and chejian!=''">
+				and  s.shop_name = #{chejian}
+			</if>
+			and s.is_new = 1
+	</sql>
+  
+  <sql id="Base_Column_List" >
+    plan_id, client, plan_no, material_no, shop_name, material_name, plan_people, plan_date, 
+    plan_num, online_date, produced_num, completed_date, process_sort, is_new
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_plan
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shop_plan
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ssm.po.ShopPlan" >
+    insert into shop_plan (plan_id, client, plan_no, 
+      material_no, shop_name, material_name, 
+      plan_people, plan_date, plan_num, 
+      online_date, produced_num, completed_date, 
+      process_sort, is_new)
+    values (#{planId,jdbcType=INTEGER}, #{client,jdbcType=VARCHAR}, #{planNo,jdbcType=VARCHAR}, 
+      #{materialNo,jdbcType=VARCHAR}, #{shopName,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR}, 
+      #{planPeople,jdbcType=VARCHAR}, #{planDate,jdbcType=VARCHAR}, #{planNum,jdbcType=VARCHAR}, 
+      #{onlineDate,jdbcType=VARCHAR}, #{producedNum,jdbcType=VARCHAR}, #{completedDate,jdbcType=VARCHAR}, 
+      #{processSort,jdbcType=VARCHAR}, #{isNew,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ssm.po.ShopPlan" keyColumn="plan_id" keyProperty="planId" useGeneratedKeys="true">
+    insert into shop_plan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="planId != null" >
+        plan_id,
+      </if>
+      <if test="client != null" >
+        client,
+      </if>
+      <if test="planNo != null" >
+        plan_no,
+      </if>
+      <if test="materialNo != null" >
+        material_no,
+      </if>
+      <if test="shopName != null" >
+        shop_name,
+      </if>
+      <if test="materialName != null" >
+        material_name,
+      </if>
+      <if test="planPeople != null" >
+        plan_people,
+      </if>
+      <if test="planDate != null" >
+        plan_date,
+      </if>
+      <if test="planNum != null" >
+        plan_num,
+      </if>
+      <if test="onlineDate != null" >
+        online_date,
+      </if>
+      <if test="producedNum != null" >
+        produced_num,
+      </if>
+      <if test="completedDate != null" >
+        completed_date,
+      </if>
+      <if test="processSort != null" >
+        process_sort,
+      </if>
+      <if test="isNew != null" >
+        is_new,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="planId != null" >
+        #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="client != null" >
+        #{client,jdbcType=VARCHAR},
+      </if>
+      <if test="planNo != null" >
+        #{planNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNo != null" >
+        #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="planPeople != null" >
+        #{planPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="planDate != null" >
+        #{planDate,jdbcType=VARCHAR},
+      </if>
+      <if test="planNum != null" >
+        #{planNum,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineDate != null" >
+        #{onlineDate,jdbcType=VARCHAR},
+      </if>
+      <if test="producedNum != null" >
+        #{producedNum,jdbcType=VARCHAR},
+      </if>
+      <if test="completedDate != null" >
+        #{completedDate,jdbcType=VARCHAR},
+      </if>
+      <if test="processSort != null" >
+        #{processSort,jdbcType=VARCHAR},
+      </if>
+      <if test="isNew != null" >
+        #{isNew,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ssm.po.ShopPlan" >
+    update shop_plan
+    <set >
+      <if test="client != null" >
+        client = #{client,jdbcType=VARCHAR},
+      </if>
+      <if test="planNo != null" >
+        plan_no = #{planNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialNo != null" >
+        material_no = #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shopName != null" >
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="planPeople != null" >
+        plan_people = #{planPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="planDate != null" >
+        plan_date = #{planDate,jdbcType=VARCHAR},
+      </if>
+      <if test="planNum != null" >
+        plan_num = #{planNum,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineDate != null" >
+        online_date = #{onlineDate,jdbcType=VARCHAR},
+      </if>
+      <if test="producedNum != null" >
+        produced_num = #{producedNum,jdbcType=VARCHAR},
+      </if>
+      <if test="completedDate != null" >
+        completed_date = #{completedDate,jdbcType=VARCHAR},
+      </if>
+      <if test="processSort != null" >
+        process_sort = #{processSort,jdbcType=VARCHAR},
+      </if>
+      <if test="isNew != null" >
+        is_new = #{isNew,jdbcType=INTEGER},
+      </if>
+    </set>
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ssm.po.ShopPlan" >
+    update shop_plan
+    set client = #{client,jdbcType=VARCHAR},
+      plan_no = #{planNo,jdbcType=VARCHAR},
+      material_no = #{materialNo,jdbcType=VARCHAR},
+      shop_name = #{shopName,jdbcType=VARCHAR},
+      material_name = #{materialName,jdbcType=VARCHAR},
+      plan_people = #{planPeople,jdbcType=VARCHAR},
+      plan_date = #{planDate,jdbcType=VARCHAR},
+      plan_num = #{planNum,jdbcType=VARCHAR},
+      online_date = #{onlineDate,jdbcType=VARCHAR},
+      produced_num = #{producedNum,jdbcType=VARCHAR},
+      completed_date = #{completedDate,jdbcType=VARCHAR},
+      process_sort = #{processSort,jdbcType=VARCHAR},
+      is_new = #{isNew,jdbcType=INTEGER}
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllShopPlan" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from shop_plan
+  </select>
+  <select id="selectShopPlanByParam" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from shop_plan s
+    <where>
+		<include refid="query_shopPlan_where"/>
+	</where>
+  </select>
+</mapper>

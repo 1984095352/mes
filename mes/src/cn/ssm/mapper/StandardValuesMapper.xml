@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ssm.mapper.StandardValuesMapper" >
+  <resultMap id="BaseResultMap" type="cn.ssm.po.StandardValues" >
+    <id column="val_id" property="valId" jdbcType="INTEGER" />
+    <result column="products_id" property="productsId" jdbcType="INTEGER" />
+    <result column="test_process" property="testProcess" jdbcType="VARCHAR" />
+    <result column="standard_val" property="standardVal" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    val_id, products_id, test_process, standard_val
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from standard_values
+    where val_id = #{valId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from standard_values
+    where val_id = #{valId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ssm.po.StandardValues" >
+    insert into standard_values (val_id, products_id, test_process, 
+      standard_val)
+    values (#{valId,jdbcType=INTEGER}, #{productsId,jdbcType=INTEGER}, #{testProcess,jdbcType=VARCHAR}, 
+      #{standardVal,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ssm.po.StandardValues" >
+    insert into standard_values
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="valId != null" >
+        val_id,
+      </if>
+      <if test="productsId != null" >
+        products_id,
+      </if>
+      <if test="testProcess != null" >
+        test_process,
+      </if>
+      <if test="standardVal != null" >
+        standard_val,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="valId != null" >
+        #{valId,jdbcType=INTEGER},
+      </if>
+      <if test="productsId != null" >
+        #{productsId,jdbcType=INTEGER},
+      </if>
+      <if test="testProcess != null" >
+        #{testProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="standardVal != null" >
+        #{standardVal,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ssm.po.StandardValues" >
+    update standard_values
+    <set >
+      <if test="productsId != null" >
+        products_id = #{productsId,jdbcType=INTEGER},
+      </if>
+      <if test="testProcess != null" >
+        test_process = #{testProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="standardVal != null" >
+        standard_val = #{standardVal,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where val_id = #{valId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ssm.po.StandardValues" >
+    update standard_values
+    set products_id = #{productsId,jdbcType=INTEGER},
+      test_process = #{testProcess,jdbcType=VARCHAR},
+      standard_val = #{standardVal,jdbcType=VARCHAR}
+    where val_id = #{valId,jdbcType=INTEGER}
+  </update>
+</mapper>

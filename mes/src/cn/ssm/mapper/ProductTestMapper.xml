@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ssm.mapper.ProductTestMapper" >
+  <resultMap id="BaseResultMap" type="cn.ssm.po.ProductTest" >
+    <id column="test_id" property="testId" jdbcType="INTEGER" />
+    <result column="products_id" property="productsId" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="process_name" property="processName" jdbcType="VARCHAR" />
+    <result column="standard_val" property="standardVal" jdbcType="VARCHAR" />
+    <result column="test_val_1" property="testVal1" jdbcType="VARCHAR" />
+    <result column="test_val_2" property="testVal2" jdbcType="VARCHAR" />
+    <result column="test_val_3" property="testVal3" jdbcType="VARCHAR" />
+    <result column="test_val_4" property="testVal4" jdbcType="VARCHAR" />
+    <result column="test_val_5" property="testVal5" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="batch_number" property="batchNumber" jdbcType="VARCHAR" />
+    <result column="is_ok" property="isOk" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    test_id, products_id, date, process_name, standard_val, test_val_1, test_val_2, test_val_3, 
+    test_val_4, test_val_5, operator, batch_number, is_ok
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_test
+    where test_id = #{testId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product_test
+    where test_id = #{testId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.ssm.po.ProductTest" >
+    insert into product_test (test_id, products_id, date, 
+      process_name, standard_val, test_val_1, 
+      test_val_2, test_val_3, test_val_4, 
+      test_val_5, operator, batch_number, 
+      is_ok)
+    values (#{testId,jdbcType=INTEGER}, #{productsId,jdbcType=INTEGER}, #{date,jdbcType=VARCHAR}, 
+      #{processName,jdbcType=VARCHAR}, #{standardVal,jdbcType=VARCHAR}, #{testVal1,jdbcType=VARCHAR}, 
+      #{testVal2,jdbcType=VARCHAR}, #{testVal3,jdbcType=VARCHAR}, #{testVal4,jdbcType=VARCHAR}, 
+      #{testVal5,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{batchNumber,jdbcType=VARCHAR}, 
+      #{isOk,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ssm.po.ProductTest" >
+    insert into product_test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="testId != null" >
+        test_id,
+      </if>
+      <if test="productsId != null" >
+        products_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="processName != null" >
+        process_name,
+      </if>
+      <if test="standardVal != null" >
+        standard_val,
+      </if>
+      <if test="testVal1 != null" >
+        test_val_1,
+      </if>
+      <if test="testVal2 != null" >
+        test_val_2,
+      </if>
+      <if test="testVal3 != null" >
+        test_val_3,
+      </if>
+      <if test="testVal4 != null" >
+        test_val_4,
+      </if>
+      <if test="testVal5 != null" >
+        test_val_5,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="batchNumber != null" >
+        batch_number,
+      </if>
+      <if test="isOk != null" >
+        is_ok,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="testId != null" >
+        #{testId,jdbcType=INTEGER},
+      </if>
+      <if test="productsId != null" >
+        #{productsId,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="processName != null" >
+        #{processName,jdbcType=VARCHAR},
+      </if>
+      <if test="standardVal != null" >
+        #{standardVal,jdbcType=VARCHAR},
+      </if>
+      <if test="testVal1 != null" >
+        #{testVal1,jdbcType=VARCHAR},
+      </if>
+      <if test="testVal2 != null" >
+        #{testVal2,jdbcType=VARCHAR},
+      </if>
+      <if test="testVal3 != null" >
+        #{testVal3,jdbcType=VARCHAR},
+      </if>
+      <if test="testVal4 != null" >
+        #{testVal4,jdbcType=VARCHAR},
+      </if>
+      <if test="testVal5 != null" >
+        #{testVal5,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null" >
+        #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="isOk != null" >
+        #{isOk,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ssm.po.ProductTest" >
+    update product_test
+    <set >
+      <if test="productsId != null" >
+        products_id = #{productsId,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="processName != null" >
+        process_name = #{processName,jdbcType=VARCHAR},
+      </if>
+      <if test="standardVal != null" >
+        standard_val = #{standardVal,jdbcType=VARCHAR},
+      </if>
+      <if test="testVal1 != null" >
+        test_val_1 = #{testVal1,jdbcType=VARCHAR},
+      </if>
+      <if test="testVal2 != null" >
+        test_val_2 = #{testVal2,jdbcType=VARCHAR},
+      </if>
+      <if test="testVal3 != null" >
+        test_val_3 = #{testVal3,jdbcType=VARCHAR},
+      </if>
+      <if test="testVal4 != null" >
+        test_val_4 = #{testVal4,jdbcType=VARCHAR},
+      </if>
+      <if test="testVal5 != null" >
+        test_val_5 = #{testVal5,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null" >
+        batch_number = #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="isOk != null" >
+        is_ok = #{isOk,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where test_id = #{testId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ssm.po.ProductTest" >
+    update product_test
+    set products_id = #{productsId,jdbcType=INTEGER},
+      date = #{date,jdbcType=VARCHAR},
+      process_name = #{processName,jdbcType=VARCHAR},
+      standard_val = #{standardVal,jdbcType=VARCHAR},
+      test_val_1 = #{testVal1,jdbcType=VARCHAR},
+      test_val_2 = #{testVal2,jdbcType=VARCHAR},
+      test_val_3 = #{testVal3,jdbcType=VARCHAR},
+      test_val_4 = #{testVal4,jdbcType=VARCHAR},
+      test_val_5 = #{testVal5,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      batch_number = #{batchNumber,jdbcType=VARCHAR},
+      is_ok = #{isOk,jdbcType=VARCHAR}
+    where test_id = #{testId,jdbcType=INTEGER}
+  </update>
+</mapper>
